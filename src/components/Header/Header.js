@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components/macro';
-import { Menu, Search, User } from 'react-feather';
+import React from "react";
+import styled from "styled-components/macro";
+import { Menu, Search, User } from "react-feather";
 
-import { QUERIES } from '../../constants';
+import { QUERIES } from "../../constants";
 
-import MaxWidthWrapper from '../MaxWidthWrapper';
-import Logo from '../Logo';
-import Button from '../Button';
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import Logo from "../Logo";
+import Button from "../Button";
 
 const Header = () => {
   return (
@@ -21,16 +21,23 @@ const Header = () => {
               <Menu size={24} />
             </button>
           </ActionGroup>
+          <DesktopHeader>
+            <Logo />
+          </DesktopHeader>
           <ActionGroup>
-            <button>
+            <UserButton>
               <User size={24} />
-            </button>
+            </UserButton>
+            <DesktopSubscribe>
+              <Button>Subscribe</Button>
+              <Login href="">Already a subscriber?</Login>
+            </DesktopSubscribe>
           </ActionGroup>
         </Row>
       </SuperHeader>
-      <MainHeader>
+      <MobileHeader>
         <Logo />
-      </MainHeader>
+      </MobileHeader>
     </header>
   );
 };
@@ -39,6 +46,11 @@ const SuperHeader = styled.div`
   padding: 16px 0;
   background: var(--color-gray-900);
   color: white;
+
+  @media ${QUERIES.desktopAndUp} {
+    background: var(--color-gray-100);
+    color: var(--color-gray-900);
+  }
 `;
 
 const Row = styled(MaxWidthWrapper)`
@@ -59,12 +71,50 @@ const ActionGroup = styled.div`
   }
 `;
 
-const MainHeader = styled(MaxWidthWrapper)`
+const UserButton = styled.button`
+  @media ${QUERIES.desktopAndUp} {
+    display: none;
+  }
+`;
+
+const DesktopSubscribe = styled.div`
+  display: none;
+  place-content: center;
+  @media ${QUERIES.desktopAndUp} {
+    display: grid;
+  }
+`;
+
+const Login = styled.a`
+  font-size: calc(14/16 * 1rem);
+  text-align: center;
+  font-style: italic;
+  line-height: calc(22/16 * 1rem);
+  text-decoration-line: underline;
+`;
+
+const MobileHeader = styled(MaxWidthWrapper)`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 32px;
   margin-bottom: 48px;
+
+  @media ${QUERIES.desktopAndUp} {
+    display: none;
+  }
+`;
+
+const DesktopHeader = styled(MaxWidthWrapper)`
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 48px;
+
+  @media ${QUERIES.desktopAndUp} {
+    display: flex;
+  }
 `;
 
 export default Header;
